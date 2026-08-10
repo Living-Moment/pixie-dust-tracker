@@ -1,0 +1,1036 @@
+```html
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+  <title>Pixie Dust Tracker</title>
+
+  <!-- Supabase -->
+  <script
+    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.57.4/dist/umd/supabase.min.js">
+  </script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #f7f4ff;
+      color: #332c4d;
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+    }
+
+    header {
+      background: linear-gradient(135deg, #7567d8, #a58de8);
+      color: white;
+      padding: 25px 18px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 24px;
+    }
+
+    header p {
+      margin: 6px 0 0;
+      font-size: 13px;
+    }
+
+    .container {
+      max-width: 720px;
+      margin: auto;
+      padding: 14px;
+    }
+
+    .status {
+      background: white;
+      border-radius: 14px;
+      padding: 14px;
+      margin-bottom: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.06);
+      font-size: 14px;
+    }
+
+    .online {
+      color: #27784b;
+    }
+
+    .offline {
+      color: #b23b3b;
+    }
+
+    .add-box {
+      background: white;
+      border-radius: 16px;
+      padding: 14px;
+      margin-bottom: 14px;
+    }
+
+    .add-row {
+      display: flex;
+      gap: 8px;
+    }
+
+    input,
+    textarea {
+      font-family: inherit;
+    }
+
+    input[type="text"] {
+      flex: 1;
+      min-width: 0;
+      border: 1px solid #ddd7ee;
+      border-radius: 12px;
+      padding: 13px;
+      font-size: 16px;
+    }
+
+    button {
+      border: none;
+      border-radius: 12px;
+      padding: 12px 15px;
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .add-btn {
+      background: #7567d8;
+      color: white;
+    }
+
+    .search {
+      width: 100%;
+      margin-top: 10px;
+      border: 1px solid #ddd7ee;
+      border-radius: 12px;
+      padding: 13px;
+      font-size: 16px;
+    }
+
+    .room-card {
+      background: white;
+      border-radius: 17px;
+      margin-bottom: 12px;
+      padding: 15px;
+      box-shadow: 0 2px 9px rgba(0,0,0,.07);
+    }
+
+    .room-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .room-number {
+      font-size: 21px;
+      font-weight: 700;
+    }
+
+    .delete-btn {
+      background: #f7e9e9;
+      color: #a43d3d;
+      padding: 7px 10px;
+      font-size: 12px;
+    }
+
+    .checks {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .check {
+      border: 1px solid #e2ddee;
+      border-radius: 13px;
+      padding: 12px 5px;
+      text-align: center;
+      background: #faf9fd;
+    }
+
+    .check.active {
+      background: #eeeaff;
+      border-color: #8b7cdb;
+    }
+
+    .check input {
+      width: 21px;
+      height: 21px;
+      accent-color: #7567d8;
+    }
+
+    .check label {
+      display: block;
+      font-size: 13px;
+    }
+
+    .note {
+      width: 100%;
+      margin-top: 11px;
+      border: 1px solid #e2ddee;
+      border-radius: 11px;
+      padding: 11px;
+      font-size: 14px;
+      min-height: 45px;
+    }
+
+    .meta {
+      margin-top: 9px;
+      font-size: 11px;
+      color: #9993a8;
+    }
+
+    .empty {
+      text-align: center;
+      color: #9993a8;
+      padding: 35px 10px;
+    }
+
+    .debug {
+      margin-top: 15px;
+      background: #fff4f4;
+      color: #9b3030;
+      border: 1px solid #f0cccc;
+      border-radius: 12px;
+      padding: 12px;
+      font-size: 12px;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>✨ Pixie Dust Tracker</h1>
+  <p>Disney Adventure · Gift Exchange</p>
+</header>
+
+<div class="container">
+
+  <div id="connectionStatus" class="status">
+    🔄 正在連接 Pixie Dust Cloud...
+  </div>
+
+  <div id="debug"></div>
+
+  <div class="add-box">
+
+    <div class="add-row">
+
+      <input
+        id="roomInput"
+        type="text"
+        placeholder="輸入房號，例如 8234"
+        inputmode="numeric"
+      >
+
+      <button
+        class="add-btn"
+        onclick="addRoom()"
+      >
+        ＋加入
+      </button>
+
+    </div>
+
+    <input
+      id="searchInput"
+      class="search"
+      type="text"
+      placeholder="🔎 搜尋房號或備註..."
+      oninput="renderRooms()"
+    >
+
+  </div>
+
+  <div id="roomList"></div>
+
+</div>
+
+
+<script>
+
+  // ==========================================
+  // Supabase 設定
+  // ==========================================
+
+  const SUPABASE_URL =
+    "https://zgefibgzrltpdwnijkpx.supabase.co";
+
+  const SUPABASE_PUBLISHABLE_KEY =
+    "sb_publishable_5NIvtqfcuFYw4dhiPvKwOQ_ZiCBGMfK";
+
+
+  // ==========================================
+  // 顯示錯誤
+  // ==========================================
+
+  function showError(message) {
+
+    const status =
+      document.getElementById(
+        "connectionStatus"
+      );
+
+    status.textContent =
+      "❌ 連線失敗";
+
+    status.className =
+      "status offline";
+
+
+    const debug =
+      document.getElementById(
+        "debug"
+      );
+
+    debug.className =
+      "debug";
+
+    debug.textContent =
+      message;
+
+    console.error(message);
+  }
+
+
+  // ==========================================
+  // 檢查 Supabase library
+  // ==========================================
+
+  if (!window.supabase) {
+
+    showError(
+      "找不到 Supabase JavaScript。\n\n" +
+      "瀏覽器沒有成功載入 Supabase CDN。\n\n" +
+      "如果你是直接開啟 index.html，" +
+      "我們下一步會把它放到免費網站上測試。"
+    );
+
+    throw new Error(
+      "Supabase library not loaded"
+    );
+  }
+
+
+  // ==========================================
+  // 建立 Supabase client
+  // ==========================================
+
+  const db =
+    window.supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_PUBLISHABLE_KEY
+    );
+
+
+  const TABLE_NAME =
+    "pixie_rooms";
+
+
+  // ==========================================
+  // App state
+  // ==========================================
+
+  let rooms = [];
+
+
+  let updatedBy =
+    localStorage.getItem(
+      "pixie_updated_by"
+    );
+
+
+  if (!updatedBy) {
+
+    updatedBy =
+      prompt(
+        "請輸入你的名字／稱呼："
+      ) || "Guest";
+
+    localStorage.setItem(
+      "pixie_updated_by",
+      updatedBy
+    );
+  }
+
+
+  // ==========================================
+  // 初始化
+  // ==========================================
+
+  async function init() {
+
+    setStatus(
+      "🔄 正在讀取 Pixie Dust Cloud...",
+      "offline"
+    );
+
+
+    try {
+
+      await loadRooms();
+
+      subscribeRealtime();
+
+    } catch (error) {
+
+      showError(
+        "初始化錯誤：\n\n" +
+        error.message
+      );
+
+    }
+  }
+
+
+  // ==========================================
+  // 讀取 Table
+  // ==========================================
+
+  async function loadRooms() {
+
+    const result =
+      await db
+        .from(TABLE_NAME)
+        .select("*")
+        .order(
+          "Room",
+          {
+            ascending: true
+          }
+        );
+
+
+    if (result.error) {
+
+      showError(
+        "Supabase 回傳錯誤：\n\n" +
+        result.error.message +
+        "\n\n" +
+        "Code: " +
+        (result.error.code || "無")
+      );
+
+      return;
+    }
+
+
+    rooms =
+      result.data || [];
+
+
+    setStatus(
+      "☁️ 已連線 · 雲端同步中",
+      "online"
+    );
+
+
+    document.getElementById(
+      "debug"
+    ).innerHTML = "";
+
+
+    renderRooms();
+  }
+
+
+  // ==========================================
+  // Realtime
+  // ==========================================
+
+  function subscribeRealtime() {
+
+    db
+      .channel(
+        "pixie-dust-realtime"
+      )
+
+      .on(
+        "postgres_changes",
+        {
+          event: "*",
+          schema: "public",
+          table: TABLE_NAME
+        },
+        function(payload) {
+
+          console.log(
+            "Realtime:",
+            payload
+          );
+
+          loadRooms();
+
+        }
+      )
+
+      .subscribe(
+        function(status) {
+
+          console.log(
+            "Realtime status:",
+            status
+          );
+
+        }
+      );
+  }
+
+
+  // ==========================================
+  // Add room
+  // ==========================================
+
+  async function addRoom() {
+
+    const input =
+      document.getElementById(
+        "roomInput"
+      );
+
+
+    const room =
+      input.value.trim();
+
+
+    if (!room) {
+
+      alert(
+        "請先輸入房號"
+      );
+
+      return;
+    }
+
+
+    if (
+      rooms.some(
+        r =>
+          String(r.Room) ===
+          String(room)
+      )
+    ) {
+
+      alert(
+        "這個房號已經存在。"
+      );
+
+      return;
+    }
+
+
+    const now =
+      new Date().toISOString();
+
+
+    const result =
+      await db
+        .from(TABLE_NAME)
+        .insert({
+
+          Room: room,
+
+          Given: false,
+
+          Received: false,
+
+          Return: false,
+
+          Note: "",
+
+          Updated_at: now,
+
+          Updated_by: updatedBy
+
+        });
+
+
+    if (result.error) {
+
+      alert(
+        "加入失敗：\n\n" +
+        result.error.message
+      );
+
+      return;
+    }
+
+
+    input.value = "";
+
+    await loadRooms();
+  }
+
+
+  // ==========================================
+  // Update checkbox
+  // ==========================================
+
+  async function updateStatus(
+    room,
+    field,
+    value
+  ) {
+
+    const updateData = {
+
+      Updated_at:
+        new Date().toISOString(),
+
+      Updated_by:
+        updatedBy
+
+    };
+
+
+    updateData[field] =
+      value;
+
+
+    const result =
+      await db
+        .from(TABLE_NAME)
+        .update(updateData)
+        .eq("Room", room);
+
+
+    if (result.error) {
+
+      alert(
+        "更新失敗：\n\n" +
+        result.error.message
+      );
+
+      await loadRooms();
+
+      return;
+    }
+
+
+    await loadRooms();
+  }
+
+
+  // ==========================================
+  // Update Note
+  // ==========================================
+
+  const noteTimers = {};
+
+
+  function updateNote(
+    room,
+    value
+  ) {
+
+    clearTimeout(
+      noteTimers[room]
+    );
+
+
+    noteTimers[room] =
+      setTimeout(
+        async function() {
+
+          const result =
+            await db
+              .from(TABLE_NAME)
+              .update({
+
+                Note: value,
+
+                Updated_at:
+                  new Date().toISOString(),
+
+                Updated_by:
+                  updatedBy
+
+              })
+              .eq(
+                "Room",
+                room
+              );
+
+
+          if (result.error) {
+
+            console.error(
+              result.error
+            );
+
+          }
+
+        },
+        500
+      );
+  }
+
+
+  // ==========================================
+  // Delete
+  // ==========================================
+
+  async function deleteRoom(
+    room
+  ) {
+
+    if (
+      !confirm(
+        `確定要刪除房號 ${room} 嗎？`
+      )
+    ) {
+
+      return;
+    }
+
+
+    const result =
+      await db
+        .from(TABLE_NAME)
+        .delete()
+        .eq("Room", room);
+
+
+    if (result.error) {
+
+      alert(
+        "刪除失敗：\n\n" +
+        result.error.message
+      );
+
+      return;
+    }
+
+
+    await loadRooms();
+  }
+
+
+  // ==========================================
+  // Render
+  // ==========================================
+
+  function renderRooms() {
+
+    const list =
+      document.getElementById(
+        "roomList"
+      );
+
+
+    const search =
+      document
+        .getElementById(
+          "searchInput"
+        )
+        .value
+        .trim()
+        .toLowerCase();
+
+
+    const filtered =
+      rooms.filter(
+        function(room) {
+
+          return (
+
+            String(
+              room.Room || ""
+            )
+              .toLowerCase()
+              .includes(search)
+
+            ||
+
+            String(
+              room.Note || ""
+            )
+              .toLowerCase()
+              .includes(search)
+
+          );
+
+        }
+      );
+
+
+    if (
+      filtered.length === 0
+    ) {
+
+      list.innerHTML = `
+        <div class="empty">
+          ✨ 暫時沒有房號
+        </div>
+      `;
+
+      return;
+    }
+
+
+    list.innerHTML =
+      filtered
+        .map(
+          function(room) {
+
+            return `
+
+              <div
+                class="room-card"
+                data-room="${escapeHtml(room.Room)}"
+              >
+
+                <div class="room-header">
+
+                  <div class="room-number">
+                    🏨
+                    ${escapeHtml(room.Room)}
+                  </div>
+
+                  <button
+                    class="delete-btn"
+                    onclick="
+                      deleteRoom(
+                        '${escapeJs(room.Room)}'
+                      )
+                    "
+                  >
+                    刪除
+                  </button>
+
+                </div>
+
+
+                <div class="checks">
+
+                  ${createCheck(
+                    room,
+                    "Given",
+                    "🎁",
+                    "已送出"
+                  )}
+
+                  ${createCheck(
+                    room,
+                    "Received",
+                    "✨",
+                    "已收到回禮"
+                  )}
+
+                  ${createCheck(
+                    room,
+                    "Return",
+                    "💝",
+                    "已回禮"
+                  )}
+
+                </div>
+
+
+                <textarea
+                  class="note"
+                  placeholder="備註，例如：米奇、唐老鴨..."
+                  oninput="
+                    updateNote(
+                      '${escapeJs(room.Room)}',
+                      this.value
+                    )
+                  "
+                >${escapeHtml(
+                  room.Note || ""
+                )}</textarea>
+
+
+                ${
+                  room.Updated_at
+                    ? `
+                      <div class="meta">
+                        最後更新：
+                        ${formatDate(
+                          room.Updated_at
+                        )}
+                        ·
+                        ${escapeHtml(
+                          room.Updated_by || ""
+                        )}
+                      </div>
+                    `
+                    : ""
+                }
+
+              </div>
+
+            `;
+
+          }
+        )
+        .join("");
+  }
+
+
+  function createCheck(
+    room,
+    field,
+    icon,
+    text
+  ) {
+
+    const checked =
+      !!room[field];
+
+
+    return `
+
+      <div
+        class="check ${
+          checked
+            ? "active"
+            : ""
+        }"
+      >
+
+        <input
+          type="checkbox"
+          ${checked ? "checked" : ""}
+          onchange="
+            updateStatus(
+              '${escapeJs(room.Room)}',
+              '${field}',
+              this.checked
+            )
+          "
+        >
+
+        <label>
+          ${icon}<br>
+          ${text}
+        </label>
+
+      </div>
+
+    `;
+  }
+
+
+  // ==========================================
+  // Date
+  // ==========================================
+
+  function formatDate(
+    value
+  ) {
+
+    return new Date(
+      value
+    ).toLocaleString(
+      "zh-HK",
+      {
+        month: "numeric",
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit"
+      }
+    );
+  }
+
+
+  // ==========================================
+  // Security helpers
+  // ==========================================
+
+  function escapeHtml(
+    value
+  ) {
+
+    return String(value)
+
+      .replace(
+        /&/g,
+        "&amp;"
+      )
+
+      .replace(
+        /</g,
+        "&lt;"
+      )
+
+      .replace(
+        />/g,
+        "&gt;"
+      )
+
+      .replace(
+        /"/g,
+        "&quot;"
+      )
+
+      .replace(
+        /'/g,
+        "&#039;"
+      );
+  }
+
+
+  function escapeJs(
+    value
+  ) {
+
+    return String(value)
+      .replace(
+        /\\/g,
+        "\\\\"
+      )
+      .replace(
+        /'/g,
+        "\\'"
+      );
+  }
+
+
+  // ==========================================
+  // Status
+  // ==========================================
+
+  function setStatus(
+    text,
+    type
+  ) {
+
+    const el =
+      document.getElementById(
+        "connectionStatus"
+      );
+
+
+    el.textContent =
+      text;
+
+    el.className =
+      "status " + type;
+  }
+
+
+  // ==========================================
+  // Start
+  // ==========================================
+
+  init();
+
+</script>
+
+</body>
+</html>
+```

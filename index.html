@@ -82,7 +82,8 @@
     }
 
     input,
-    textarea {
+    textarea,
+    select {
       font-family: inherit;
     }
 
@@ -115,6 +116,45 @@
       border-radius: 12px;
       padding: 13px;
       font-size: 16px;
+    }
+
+    /* =========================
+       Sort
+    ========================= */
+
+    .sort-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .sort-label {
+      font-size: 13px;
+      white-space: nowrap;
+      color: #625a78;
+    }
+
+    .sort-select {
+      flex: 1;
+      min-width: 0;
+      border: 1px solid #ddd7ee;
+      border-radius: 12px;
+      padding: 11px 12px;
+      background: #faf9fd;
+      color: #332c4d;
+      font-size: 14px;
+    }
+
+    .reverse-btn {
+      background: #eeeaff;
+      color: #5d50a8;
+      padding: 10px 12px;
+      white-space: nowrap;
+    }
+
+    .reverse-btn:active {
+      transform: scale(.97);
     }
 
     .room-card {
@@ -253,6 +293,36 @@
       oninput="renderRooms()"
     >
 
+    <div class="sort-row">
+
+      <span class="sort-label">
+        排序：
+      </span>
+
+      <select
+        id="sortSelect"
+        class="sort-select"
+        onchange="changeSort()"
+      >
+        <option value="room">
+          🏠 房間號
+        </option>
+
+        <option value="updated">
+          🕒 最近更新
+        </option>
+      </select>
+
+      <button
+        class="reverse-btn"
+        onclick="reverseSort()"
+        title="反轉目前排序方向"
+      >
+        ↕️ 反向
+      </button>
+
+    </div>
+
   </div>
 
   <div id="roomList"></div>
@@ -347,6 +417,29 @@
   let rooms = [];
 
 
+  // 排序狀態
+  let sortMode =
+    localStorage.getItem(
+      "pixie_sort_mode"
+    ) || "room";
+
+
+  let sortAscending =
+    localStorage.getItem(
+      "pixie_sort_ascending"
+    );
+
+  if (sortAscending === null) {
+
+    sortAscending = true;
+
+  } else {
+
+    sortAscending =
+      sortAscending === "true";
+  }
+
+
   let updatedBy =
     localStorage.getItem(
       "pixie_updated_by"
@@ -377,6 +470,19 @@
       "🔄 正在讀取 Pixie Dust Cloud...",
       "offline"
     );
+
+
+    // 還原排序選擇
+    const sortSelect =
+      document.getElementById(
+        "sortSelect"
+      );
+
+    sortSelect.value =
+      sortMode;
+
+
+    updateSortLabel();
 
 
     try {
@@ -487,6 +593,210 @@
 
         }
       );
+  }
+
+
+  // ==========================================
+  // 排序
+  // ==========================================
+
+  function changeSort() {
+
+    const select =
+      document.getElementById(
+        "sortSelect"
+      );
+
+    sortMode =
+      select.value;
+
+
+    // 每次改變排序類型，
+    // 預設先使用正向排序
+    sortAscending = true;
+
+
+    localStorage.setItem(
+      "pixie_sort_mode",
+      sortMode
+    );
+
+    localStorage.setItem(
+      "pixie_sort_ascending",
+      sortAscending
+    );
+
+
+    updateSortLabel();
+
+    renderRooms();
+  }
+
+
+  function reverseSort() {
+
+    sortAscending =
+      !sortAscending;
+
+
+    localStorage.setItem(
+      "pixie_sort_ascending",
+      sortAscending
+    );
+
+
+    updateSortLabel();
+
+    renderRooms();
+  }
+
+
+  function updateSortLabel() {
+
+    const select =
+      document.getElementById(
+        "sortSelect"
+      );
+
+
+    if (!select) {
+      return;
+    }
+
+
+    const reverseButton =
+      document.querySelector(
+        ".reverse-btn"
+      );
+
+
+    if (sortAscending) {
+
+      if (sortMode === "room") {
+
+        select.options[0].text =
+          "🏠 房間號：由小至大";
+
+      } else {
+
+        select.options[1].text =
+          "🕒 最近更新：最新在前";
+      }
+
+    } else {
+
+      if (sortMode === "room") {
+
+        select.options[0].text =
+          "🏠 房間號：由大至小";
+
+      } else {
+
+        select.options[1].text =
+          "🕒 最近更新：最舊在前";
+      }
+
+    }
+
+
+    if (reverseButton) {
+
+      reverseButton.title =
+        sortAscending
+          ? "反轉目前排序方向"
+          : "恢復正向排序";
+
+    }
+  }
+
+
+  function sortRooms(data) {
+
+    const sorted =
+      [...data];
+
+
+    sorted.sort(
+      function(a, b) {
+
+        let comparison = 0;
+
+
+        if (sortMode === "room") {
+
+          const roomA =
+            String(
+              a.Room || ""
+            );
+
+          const roomB =
+            String(
+              b.Room || ""
+            );
+
+
+          // 如果房號純粹是數字，
+          // 使用數字排序
+          const numA =
+            Number(roomA);
+
+          const numB =
+            Number(roomB);
+
+
+          if (
+            !Number.isNaN(numA) &&
+            !Number.isNaN(numB)
+          ) {
+
+            comparison =
+              numA - numB;
+
+          } else {
+
+            comparison =
+              roomA.localeCompare(
+                roomB,
+                "zh-Hant",
+                {
+                  numeric: true
+                }
+              );
+          }
+
+        }
+
+
+        else if (
+          sortMode === "updated"
+        ) {
+
+          const dateA =
+            new Date(
+              a.Updated_at || 0
+            ).getTime();
+
+          const dateB =
+            new Date(
+              b.Updated_at || 0
+            ).getTime();
+
+
+          // 預設：最新在前
+          comparison =
+            dateB - dateA;
+        }
+
+
+        return sortAscending
+          ? comparison
+          : -comparison;
+
+      }
+    );
+
+
+    return sorted;
   }
 
 
@@ -767,8 +1077,12 @@
       );
 
 
+    const sorted =
+      sortRooms(filtered);
+
+
     if (
-      filtered.length === 0
+      sorted.length === 0
     ) {
 
       list.innerHTML = `
@@ -782,7 +1096,7 @@
 
 
     list.innerHTML =
-      filtered
+      sorted
         .map(
           function(room) {
 

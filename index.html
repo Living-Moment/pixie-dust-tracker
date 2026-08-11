@@ -2,19 +2,13 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8">
-
-  <!-- 不讓 Google 索引 Tracker -->
   <meta name="robots" content="noindex, nofollow">
-
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>Pixie Dust Tracker</title>
 
   <!-- Supabase -->
-  <script
-    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.57.4/dist/umd/supabase.min.js">
-  </script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.57.4/dist/umd/supabase.min.js"></script>
 
   <style>
     * {
@@ -67,7 +61,7 @@
       text-align: center;
 
       box-shadow:
-        0 10px 35px rgba(0,0,0,.18);
+        0 10px 35px rgba(0, 0, 0, .18);
     }
 
     .pin-icon {
@@ -105,8 +99,9 @@
 
     .pin-input:focus {
       border-color: #7567d8;
+
       box-shadow:
-        0 0 0 3px rgba(117,103,216,.12);
+        0 0 0 3px rgba(117, 103, 216, .12);
     }
 
     .pin-button {
@@ -124,6 +119,8 @@
 
       font-size: 16px;
       font-weight: 600;
+
+      cursor: pointer;
     }
 
     .pin-error {
@@ -152,7 +149,9 @@
         );
 
       color: white;
+
       padding: 25px 18px;
+
       text-align: center;
     }
 
@@ -174,10 +173,16 @@
 
     .status {
       background: white;
+
       border-radius: 14px;
+
       padding: 14px;
+
       margin-bottom: 12px;
-      box-shadow: 0 2px 8px rgba(0,0,0,.06);
+
+      box-shadow:
+        0 2px 8px rgba(0, 0, 0, .06);
+
       font-size: 14px;
     }
 
@@ -189,10 +194,68 @@
       color: #b23b3b;
     }
 
+    /* =========================
+       STATISTICS
+    ========================= */
+
+    .stats {
+      display: grid;
+
+      grid-template-columns:
+        repeat(3, 1fr);
+
+      gap: 8px;
+
+      margin-bottom: 12px;
+    }
+
+    .stat-card {
+      background: white;
+
+      border-radius: 15px;
+
+      padding: 13px 8px;
+
+      text-align: center;
+
+      box-shadow:
+        0 2px 8px rgba(0, 0, 0, .06);
+    }
+
+    .stat-icon {
+      font-size: 20px;
+      margin-bottom: 3px;
+    }
+
+    .stat-number {
+      font-size: 23px;
+
+      font-weight: 700;
+
+      color: #5d50a8;
+
+      line-height: 1.2;
+    }
+
+    .stat-label {
+      margin-top: 4px;
+
+      font-size: 11px;
+
+      color: #77718a;
+    }
+
+    /* =========================
+       ADD / SEARCH
+    ========================= */
+
     .add-box {
       background: white;
+
       border-radius: 16px;
+
       padding: 14px;
+
       margin-bottom: 14px;
     }
 
@@ -212,35 +275,45 @@
       min-width: 0;
 
       border: 1px solid #ddd7ee;
+
       border-radius: 12px;
 
       padding: 13px;
+
       font-size: 16px;
     }
 
     button {
       border: none;
+
       border-radius: 12px;
 
       padding: 12px 15px;
 
       font-size: 15px;
+
       font-weight: 600;
     }
 
     .add-btn {
       background: #7567d8;
+
       color: white;
+
+      cursor: pointer;
     }
 
     .search {
       width: 100%;
+
       margin-top: 10px;
 
       border: 1px solid #ddd7ee;
+
       border-radius: 12px;
 
       padding: 13px;
+
       font-size: 16px;
     }
 
@@ -250,28 +323,35 @@
 
     .sort-row {
       display: flex;
+
       align-items: center;
 
       gap: 8px;
+
       margin-top: 10px;
     }
 
     .sort-label {
       font-size: 13px;
+
       white-space: nowrap;
+
       color: #625a78;
     }
 
     .sort-select {
       flex: 1;
+
       min-width: 0;
 
       border: 1px solid #ddd7ee;
+
       border-radius: 12px;
 
       padding: 11px 12px;
 
       background: #faf9fd;
+
       color: #332c4d;
 
       font-size: 14px;
@@ -279,26 +359,38 @@
 
     .reverse-btn {
       background: #eeeaff;
+
       color: #5d50a8;
 
       padding: 10px 12px;
+
       white-space: nowrap;
+
+      cursor: pointer;
     }
+
+    /* =========================
+       ROOM CARD
+    ========================= */
 
     .room-card {
       background: white;
+
       border-radius: 17px;
 
       margin-bottom: 12px;
+
       padding: 15px;
 
       box-shadow:
-        0 2px 9px rgba(0,0,0,.07);
+        0 2px 9px rgba(0, 0, 0, .07);
     }
 
     .room-header {
       display: flex;
+
       justify-content: space-between;
+
       align-items: center;
 
       margin-bottom: 12px;
@@ -306,26 +398,34 @@
 
     .room-number {
       font-size: 21px;
+
       font-weight: 700;
     }
 
     .delete-btn {
       background: #f7e9e9;
+
       color: #a43d3d;
 
       padding: 7px 10px;
+
       font-size: 12px;
+
+      cursor: pointer;
     }
 
     .checks {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+
+      grid-template-columns:
+        repeat(3, 1fr);
 
       gap: 8px;
     }
 
     .check {
       border: 1px solid #e2ddee;
+
       border-radius: 13px;
 
       padding: 12px 5px;
@@ -337,6 +437,7 @@
 
     .check.active {
       background: #eeeaff;
+
       border-color: #8b7cdb;
     }
 
@@ -345,47 +446,61 @@
       height: 21px;
 
       accent-color: #7567d8;
+
+      cursor: pointer;
     }
 
     .check label {
       display: block;
+
       font-size: 13px;
     }
 
     .note {
       width: 100%;
+
       margin-top: 11px;
 
       border: 1px solid #e2ddee;
+
       border-radius: 11px;
 
       padding: 11px;
 
       font-size: 14px;
+
       min-height: 45px;
+
+      resize: vertical;
     }
 
     .meta {
       margin-top: 9px;
 
       font-size: 11px;
+
       color: #9993a8;
     }
 
     .empty {
       text-align: center;
+
       color: #9993a8;
 
       padding: 35px 10px;
     }
 
     .debug {
+      display: none;
+
       margin-top: 15px;
 
       background: #fff4f4;
+
       color: #9b3030;
 
       border: 1px solid #f0cccc;
+
       border-radius: 12px;
 
       padding: 12px;
@@ -393,7 +508,12 @@
       font-size: 12px;
 
       white-space: pre-wrap;
+
       word-break: break-word;
+    }
+
+    .debug.visible {
+      display: block;
     }
 
     /* =========================
@@ -402,1348 +522,1570 @@
 
     .lock-row {
       text-align: right;
+
       margin-bottom: 10px;
     }
 
     .lock-btn {
       background: #eeeaff;
+
       color: #5d50a8;
 
       padding: 8px 12px;
+
       font-size: 12px;
+
+      cursor: pointer;
+    }
+
+    /* =========================
+       MOBILE
+    ========================= */
+
+    @media (max-width: 420px) {
+
+      .stat-card {
+        padding: 11px 5px;
+      }
+
+      .stat-number {
+        font-size: 21px;
+      }
+
+      .stat-label {
+        font-size: 10px;
+      }
+
+      .sort-row {
+        flex-wrap: wrap;
+      }
+
+      .sort-label {
+        width: 100%;
+      }
+
     }
   </style>
 </head>
 
 <body>
 
-<!-- =========================
-     PIN LOCK SCREEN
-========================= -->
+  <!-- =========================
+       PIN LOCK SCREEN
+  ========================= -->
 
-<div id="pinLock">
+  <div id="pinLock">
 
-  <div class="pin-box">
+    <div class="pin-box">
 
-    <div class="pin-icon">
-      🔐
-    </div>
-
-    <h1>
-      Pixie Dust Tracker
-    </h1>
-
-    <p>
-      私人 Gift Exchange Tracker
-    </p>
-
-    <input
-      id="pinInput"
-      class="pin-input"
-      type="password"
-      inputmode="numeric"
-      maxlength="4"
-      pattern="[0-9]*"
-      autocomplete="off"
-      placeholder="••••"
-      onkeydown="handlePinKey(event)"
-    >
-
-    <button
-      class="pin-button"
-      onclick="unlockTracker()"
-    >
-      解鎖
-    </button>
-
-    <div
-      id="pinError"
-      class="pin-error"
-    ></div>
-
-  </div>
-
-</div>
-
-
-<!-- =========================
-     MAIN APP
-========================= -->
-
-<div id="app">
-
-  <header>
-    <h1>✨ Pixie Dust Tracker</h1>
-    <p>Disney Adventure · Gift Exchange</p>
-  </header>
-
-  <div class="container">
-
-    <div class="lock-row">
-
-      <button
-        class="lock-btn"
-        onclick="lockTracker()"
-      >
-        🔒 鎖定 Tracker
-      </button>
-
-    </div>
-
-    <div
-      id="connectionStatus"
-      class="status"
-    >
-      🔄 正在連接 Pixie Dust Cloud...
-    </div>
-
-    <div id="debug"></div>
-
-    <div class="add-box">
-
-      <div class="add-row">
-
-        <input
-          id="roomInput"
-          type="text"
-          placeholder="輸入房號，例如 8234"
-          inputmode="numeric"
-        >
-
-        <button
-          class="add-btn"
-          onclick="addRoom()"
-        >
-          ＋加入
-        </button>
-
+      <div class="pin-icon">
+        🔐
       </div>
+
+      <h1>
+        Pixie Dust Tracker
+      </h1>
+
+      <p>
+        私人 Gift Exchange Tracker
+      </p>
 
       <input
-        id="searchInput"
-        class="search"
-        type="text"
-        placeholder="🔎 搜尋房號或備註..."
-        oninput="renderRooms()"
+        id="pinInput"
+        class="pin-input"
+        type="password"
+        inputmode="numeric"
+        maxlength="4"
+        pattern="[0-9]*"
+        autocomplete="off"
+        placeholder="••••"
+        onkeydown="handlePinKey(event)"
       >
 
-      <div class="sort-row">
+      <button
+        class="pin-button"
+        type="button"
+        onclick="unlockTracker()"
+      >
+        解鎖
+      </button>
 
-        <span class="sort-label">
-          排序：
-        </span>
+      <div
+        id="pinError"
+        class="pin-error"
+      ></div>
 
-        <select
-          id="sortSelect"
-          class="sort-select"
-          onchange="changeSort()"
-        >
+    </div>
 
-          <option value="room">
-            🏠 房間號
-          </option>
+  </div>
 
-          <option value="updated">
-            🕒 最近更新
-          </option>
 
-        </select>
+  <!-- =========================
+       MAIN APP
+  ========================= -->
+
+  <div id="app">
+
+    <header>
+
+      <h1>
+        ✨ Pixie Dust Tracker
+      </h1>
+
+      <p>
+        Disney Adventure · Gift Exchange
+      </p>
+
+    </header>
+
+
+    <div class="container">
+
+      <div class="lock-row">
 
         <button
-          class="reverse-btn"
-          onclick="reverseSort()"
+          class="lock-btn"
+          type="button"
+          onclick="lockTracker()"
         >
-          ↕️ 反向
+          🔒 鎖定 Tracker
         </button>
 
       </div>
 
-    </div>
 
-    <div id="roomList"></div>
+      <div
+        id="connectionStatus"
+        class="status"
+      >
+        🔄 正在連接 Pixie Dust Cloud...
+      </div>
+
+
+      <div
+        id="debug"
+        class="debug"
+      ></div>
+
+
+      <!-- =========================
+           STATISTICS
+      ========================= -->
+
+      <div class="stats">
+
+        <div class="stat-card">
+
+          <div class="stat-icon">
+            🏨
+          </div>
+
+          <div
+            id="totalRooms"
+            class="stat-number"
+          >
+            0
+          </div>
+
+          <div class="stat-label">
+            房間總數
+          </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+          <div class="stat-icon">
+            🎁
+          </div>
+
+          <div
+            id="givenRooms"
+            class="stat-number"
+          >
+            0
+          </div>
+
+          <div class="stat-label">
+            已派禮物
+          </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+          <div class="stat-icon">
+            ✨
+          </div>
+
+          <div
+            id="receivedRooms"
+            class="stat-number"
+          >
+            0
+          </div>
+
+          <div class="stat-label">
+            收到禮物
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- =========================
+           ADD ROOM
+      ========================= -->
+
+      <div class="add-box">
+
+        <div class="add-row">
+
+          <input
+            id="roomInput"
+            type="text"
+            placeholder="輸入房號，例如 8234"
+            inputmode="numeric"
+          >
+
+          <button
+            class="add-btn"
+            type="button"
+            onclick="addRoom()"
+          >
+            ＋加入
+          </button>
+
+        </div>
+
+
+        <input
+          id="searchInput"
+          class="search"
+          type="text"
+          placeholder="🔎 搜尋房號或備註..."
+          oninput="renderRooms()"
+        >
+
+
+        <div class="sort-row">
+
+          <span class="sort-label">
+            排序：
+          </span>
+
+          <select
+            id="sortSelect"
+            class="sort-select"
+            onchange="changeSort()"
+          >
+
+            <option value="room">
+              🏠 房間號
+            </option>
+
+            <option value="updated">
+              🕒 最近更新
+            </option>
+
+          </select>
+
+
+          <button
+            class="reverse-btn"
+            type="button"
+            onclick="reverseSort()"
+          >
+            ↕️ 反向
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <div id="roomList"></div>
+
+    </div>
 
   </div>
 
-</div>
+
+  <script>
+
+    // ==========================================
+    // PIN
+    // ==========================================
+
+    const TRACKER_PIN = "0720";
 
 
-<script>
+    // ==========================================
+    // Supabase
+    // ==========================================
 
-  // ==========================================
-  // PIN 設定
-  // ==========================================
+    const SUPABASE_URL =
+      "https://zgefibgzrltpdwnijkpx.supabase.co";
 
-  const TRACKER_PIN = "0720";
+    const SUPABASE_PUBLISHABLE_KEY =
+      "sb_publishable_5NIvtqfcuFYw4dhiPvKwOQ_ZiCBGMfK";
+
+    const TABLE_NAME =
+      "pixie_rooms";
 
 
-  // ==========================================
-  // PIN Lock
-  // ==========================================
+    // ==========================================
+    // App state
+    // ==========================================
 
-  function unlockTracker() {
+    let rooms = [];
 
-    const input =
-      document.getElementById(
-        "pinInput"
+    let initialized = false;
+
+    let sortMode =
+      localStorage.getItem(
+        "pixie_sort_mode"
+      ) || "room";
+
+    let sortAscending =
+      localStorage.getItem(
+        "pixie_sort_ascending"
       );
 
-    const error =
-      document.getElementById(
-        "pinError"
-      );
 
-    if (
-      input.value ===
-      TRACKER_PIN
-    ) {
+    if (sortAscending === null) {
 
-      sessionStorage.setItem(
-        "pixie_unlocked",
-        "true"
-      );
-
-      document.getElementById(
-        "pinLock"
-      ).style.display =
-        "none";
-
-      document.getElementById(
-        "app"
-      ).style.display =
-        "block";
-
-      error.textContent = "";
-
-      init();
+      sortAscending = true;
 
     } else {
 
-      error.textContent =
-        "❌ PIN 不正確，請再試一次";
-
-      input.value = "";
-
-      input.focus();
+      sortAscending =
+        sortAscending === "true";
 
     }
-  }
 
 
-  function handlePinKey(event) {
-
-    if (
-      event.key ===
-      "Enter"
-    ) {
-
-      unlockTracker();
-
-    }
-  }
-
-
-  function lockTracker() {
-
-    sessionStorage.removeItem(
-      "pixie_unlocked"
-    );
-
-    document.getElementById(
-      "app"
-    ).style.display =
-      "none";
-
-    document.getElementById(
-      "pinLock"
-    ).style.display =
-      "flex";
-
-    const input =
-      document.getElementById(
-        "pinInput"
+    let updatedBy =
+      localStorage.getItem(
+        "pixie_updated_by"
       );
 
-    input.value = "";
 
-    input.focus();
+    if (!updatedBy) {
 
-  }
+      updatedBy =
+        prompt(
+          "請輸入你的名字／稱呼："
+        ) || "Guest";
+
+      localStorage.setItem(
+        "pixie_updated_by",
+        updatedBy
+      );
+
+    }
 
 
-  // ==========================================
-  // 檢查是否已解鎖
-  // ==========================================
+    // ==========================================
+    // PIN Lock
+    // ==========================================
 
-  function checkUnlock() {
+    function unlockTracker() {
 
-    if (
-      sessionStorage.getItem(
+      const input =
+        document.getElementById(
+          "pinInput"
+        );
+
+      const error =
+        document.getElementById(
+          "pinError"
+        );
+
+
+      if (
+        input.value ===
+        TRACKER_PIN
+      ) {
+
+        sessionStorage.setItem(
+          "pixie_unlocked",
+          "true"
+        );
+
+        document.getElementById(
+          "pinLock"
+        ).style.display =
+          "none";
+
+        document.getElementById(
+          "app"
+        ).style.display =
+          "block";
+
+        error.textContent = "";
+
+        init();
+
+      } else {
+
+        error.textContent =
+          "❌ PIN 不正確，請再試一次";
+
+        input.value = "";
+
+        input.focus();
+
+      }
+
+    }
+
+
+    function handlePinKey(event) {
+
+      if (
+        event.key ===
+        "Enter"
+      ) {
+
+        unlockTracker();
+
+      }
+
+    }
+
+
+    function lockTracker() {
+
+      sessionStorage.removeItem(
         "pixie_unlocked"
-      ) === "true"
-    ) {
-
-      document.getElementById(
-        "pinLock"
-      ).style.display =
-        "none";
+      );
 
       document.getElementById(
         "app"
       ).style.display =
-        "block";
-
-      init();
-
-    } else {
+        "none";
 
       document.getElementById(
         "pinLock"
       ).style.display =
         "flex";
 
-      document.getElementById(
-        "app"
-      ).style.display =
-        "none";
+      const input =
+        document.getElementById(
+          "pinInput"
+        );
 
-      setTimeout(
-        function() {
+      input.value = "";
 
-          document.getElementById(
-            "pinInput"
-          ).focus();
-
-        },
-        100
-      );
+      input.focus();
 
     }
-  }
 
 
-  // ==========================================
-  // Supabase 設定
-  // ==========================================
+    function checkUnlock() {
 
-  const SUPABASE_URL =
-    "https://zgefibgzrltpdwnijkpx.supabase.co";
+      if (
+        sessionStorage.getItem(
+          "pixie_unlocked"
+        ) === "true"
+      ) {
 
-  const SUPABASE_PUBLISHABLE_KEY =
-    "sb_publishable_5NIvtqfcuFYw4dhiPvKwOQ_ZiCBGMfK";
+        document.getElementById(
+          "pinLock"
+        ).style.display =
+          "none";
 
+        document.getElementById(
+          "app"
+        ).style.display =
+          "block";
 
-  // ==========================================
-  // 顯示錯誤
-  // ==========================================
+        init();
 
-  function showError(message) {
+      } else {
 
-    const status =
-      document.getElementById(
-        "connectionStatus"
-      );
+        document.getElementById(
+          "pinLock"
+        ).style.display =
+          "flex";
 
-    status.textContent =
-      "❌ 連線失敗";
+        document.getElementById(
+          "app"
+        ).style.display =
+          "none";
 
-    status.className =
-      "status offline";
+        setTimeout(
+          function () {
 
+            document.getElementById(
+              "pinInput"
+            ).focus();
 
-    const debug =
-      document.getElementById(
-        "debug"
-      );
+          },
+          100
+        );
 
-    debug.className =
-      "debug";
+      }
 
-    debug.textContent =
-      message;
-
-    console.error(message);
-  }
-
-
-  // ==========================================
-  // 檢查 Supabase library
-  // ==========================================
-
-  if (!window.supabase) {
-
-    showError(
-      "找不到 Supabase JavaScript。"
-    );
-
-    throw new Error(
-      "Supabase library not loaded"
-    );
-  }
-
-
-  // ==========================================
-  // 建立 Supabase client
-  // ==========================================
-
-  const db =
-    window.supabase.createClient(
-      SUPABASE_URL,
-      SUPABASE_PUBLISHABLE_KEY
-    );
-
-
-  const TABLE_NAME =
-    "pixie_rooms";
-
-
-  // ==========================================
-  // App state
-  // ==========================================
-
-  let rooms = [];
-
-
-  let sortMode =
-    localStorage.getItem(
-      "pixie_sort_mode"
-    ) || "room";
-
-
-  let sortAscending =
-    localStorage.getItem(
-      "pixie_sort_ascending"
-    );
-
-
-  if (sortAscending === null) {
-
-    sortAscending = true;
-
-  } else {
-
-    sortAscending =
-      sortAscending === "true";
-
-  }
-
-
-  let updatedBy =
-    localStorage.getItem(
-      "pixie_updated_by"
-    );
-
-
-  if (!updatedBy) {
-
-    updatedBy =
-      prompt(
-        "請輸入你的名字／稱呼："
-      ) || "Guest";
-
-    localStorage.setItem(
-      "pixie_updated_by",
-      updatedBy
-    );
-
-  }
-
-
-  // ==========================================
-  // 初始化
-  // ==========================================
-
-  let initialized = false;
-
-
-  async function init() {
-
-    if (initialized) {
-      return;
     }
 
-    initialized = true;
+
+    // ==========================================
+    // Error
+    // ==========================================
+
+    function showError(message) {
+
+      const status =
+        document.getElementById(
+          "connectionStatus"
+        );
+
+      status.textContent =
+        "❌ 連線失敗";
+
+      status.className =
+        "status offline";
 
 
-    setStatus(
-      "🔄 正在讀取 Pixie Dust Cloud...",
-      "offline"
-    );
+      const debug =
+        document.getElementById(
+          "debug"
+        );
+
+      debug.className =
+        "debug visible";
+
+      debug.textContent =
+        message;
+
+      console.error(message);
+
+    }
 
 
-    const sortSelect =
-      document.getElementById(
-        "sortSelect"
-      );
+    // ==========================================
+    // Supabase library
+    // ==========================================
 
-    sortSelect.value =
-      sortMode;
-
-
-    updateSortLabel();
-
-
-    try {
-
-      await loadRooms();
-
-      subscribeRealtime();
-
-    } catch (error) {
+    if (!window.supabase) {
 
       showError(
-        "初始化錯誤：\n\n" +
-        error.message
+        "找不到 Supabase JavaScript。"
+      );
+
+      throw new Error(
+        "Supabase library not loaded"
       );
 
     }
 
-  }
+
+    // ==========================================
+    // Supabase client
+    // ==========================================
+
+    const db =
+      window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY
+      );
 
 
-  // ==========================================
-  // 讀取 Table
-  // ==========================================
+    // ==========================================
+    // 初始化
+    // ==========================================
 
-  async function loadRooms() {
+    async function init() {
 
-    const result =
-      await db
-        .from(TABLE_NAME)
-        .select("*")
-        .order(
-          "Room",
+      if (initialized) {
+        return;
+      }
+
+      initialized = true;
+
+
+      setStatus(
+        "🔄 正在讀取 Pixie Dust Cloud...",
+        "offline"
+      );
+
+
+      const sortSelect =
+        document.getElementById(
+          "sortSelect"
+        );
+
+      sortSelect.value =
+        sortMode;
+
+      updateSortLabel();
+
+
+      try {
+
+        await loadRooms();
+
+        subscribeRealtime();
+
+      } catch (error) {
+
+        showError(
+          "初始化錯誤：\n\n" +
+          error.message
+        );
+
+      }
+
+    }
+
+
+    // ==========================================
+    // Load rooms
+    // ==========================================
+
+    async function loadRooms() {
+
+      const result =
+        await db
+          .from(TABLE_NAME)
+          .select("*")
+          .order(
+            "Room",
+            {
+              ascending: true
+            }
+          );
+
+
+      if (result.error) {
+
+        showError(
+          "Supabase 回傳錯誤：\n\n" +
+          result.error.message +
+          "\n\nCode: " +
+          (
+            result.error.code ||
+            "無"
+          )
+        );
+
+        return;
+
+      }
+
+
+      rooms =
+        result.data || [];
+
+
+      setStatus(
+        "☁️ 已連線 · 雲端同步中",
+        "online"
+      );
+
+
+      const debug =
+        document.getElementById(
+          "debug"
+        );
+
+      debug.className =
+        "debug";
+
+      debug.textContent =
+        "";
+
+
+      renderRooms();
+
+    }
+
+
+    // ==========================================
+    // Realtime
+    // ==========================================
+
+    function subscribeRealtime() {
+
+      db
+        .channel(
+          "pixie-dust-realtime"
+        )
+
+        .on(
+          "postgres_changes",
           {
-            ascending: true
+            event: "*",
+            schema: "public",
+            table: TABLE_NAME
+          },
+          function (payload) {
+
+            console.log(
+              "Realtime:",
+              payload
+            );
+
+            loadRooms();
+
+          }
+        )
+
+        .subscribe(
+          function (status) {
+
+            console.log(
+              "Realtime status:",
+              status
+            );
+
           }
         );
 
-
-    if (result.error) {
-
-      showError(
-        "Supabase 回傳錯誤：\n\n" +
-        result.error.message +
-        "\n\nCode: " +
-        (
-          result.error.code ||
-          "無"
-        )
-      );
-
-      return;
     }
 
 
-    rooms =
-      result.data || [];
+    // ==========================================
+    // Statistics
+    // ==========================================
+
+    function updateStatistics() {
+
+      const total =
+        rooms.length;
 
 
-    setStatus(
-      "☁️ 已連線 · 雲端同步中",
-      "online"
-    );
+      const given =
+        rooms.filter(
+          function (room) {
+
+            return room.Given === true;
+
+          }
+        ).length;
 
 
-    document.getElementById(
-      "debug"
-    ).innerHTML = "";
+      const received =
+        rooms.filter(
+          function (room) {
+
+            return room.Received === true;
+
+          }
+        ).length;
 
 
-    renderRooms();
-
-  }
-
-
-  // ==========================================
-  // Realtime
-  // ==========================================
-
-  function subscribeRealtime() {
-
-    db
-      .channel(
-        "pixie-dust-realtime"
-      )
-
-      .on(
-        "postgres_changes",
-        {
-          event: "*",
-          schema: "public",
-          table: TABLE_NAME
-        },
-        function(payload) {
-
-          console.log(
-            "Realtime:",
-            payload
-          );
-
-          loadRooms();
-
-        }
-      )
-
-      .subscribe(
-        function(status) {
-
-          console.log(
-            "Realtime status:",
-            status
-          );
-
-        }
-      );
-
-  }
-
-
-  // ==========================================
-  // 排序
-  // ==========================================
-
-  function changeSort() {
-
-    const select =
       document.getElementById(
-        "sortSelect"
-      );
+        "totalRooms"
+      ).textContent =
+        total;
 
 
-    sortMode =
-      select.value;
-
-
-    sortAscending = true;
-
-
-    localStorage.setItem(
-      "pixie_sort_mode",
-      sortMode
-    );
-
-    localStorage.setItem(
-      "pixie_sort_ascending",
-      sortAscending
-    );
-
-
-    updateSortLabel();
-
-    renderRooms();
-
-  }
-
-
-  function reverseSort() {
-
-    sortAscending =
-      !sortAscending;
-
-
-    localStorage.setItem(
-      "pixie_sort_ascending",
-      sortAscending
-    );
-
-
-    updateSortLabel();
-
-    renderRooms();
-
-  }
-
-
-  function updateSortLabel() {
-
-    const select =
       document.getElementById(
-        "sortSelect"
+        "givenRooms"
+      ).textContent =
+        given;
+
+
+      document.getElementById(
+        "receivedRooms"
+      ).textContent =
+        received;
+
+    }
+
+
+    // ==========================================
+    // Sort
+    // ==========================================
+
+    function changeSort() {
+
+      const select =
+        document.getElementById(
+          "sortSelect"
+        );
+
+
+      sortMode =
+        select.value;
+
+      sortAscending =
+        true;
+
+
+      localStorage.setItem(
+        "pixie_sort_mode",
+        sortMode
+      );
+
+      localStorage.setItem(
+        "pixie_sort_ascending",
+        sortAscending
       );
 
 
-    if (!select) {
-      return;
-    }
+      updateSortLabel();
 
-
-    if (sortMode === "room") {
-
-      select.options[0].text =
-        sortAscending
-          ? "🏠 房間號：由小至大"
-          : "🏠 房間號：由大至小";
-
-    } else {
-
-      select.options[1].text =
-        sortAscending
-          ? "🕒 最近更新：最新在前"
-          : "🕒 最近更新：最舊在前";
+      renderRooms();
 
     }
 
-  }
+
+    function reverseSort() {
+
+      sortAscending =
+        !sortAscending;
 
 
-  function sortRooms(data) {
-
-    const sorted =
-      [...data];
-
-
-    sorted.sort(
-      function(a, b) {
-
-        let comparison = 0;
+      localStorage.setItem(
+        "pixie_sort_ascending",
+        sortAscending
+      );
 
 
-        if (
-          sortMode === "room"
-        ) {
+      updateSortLabel();
 
-          const roomA =
-            String(
-              a.Room || ""
-            );
+      renderRooms();
 
-          const roomB =
-            String(
-              b.Room || ""
-            );
+    }
 
 
-          const numA =
-            Number(roomA);
+    function updateSortLabel() {
 
-          const numB =
-            Number(roomB);
+      const select =
+        document.getElementById(
+          "sortSelect"
+        );
+
+
+      if (!select) {
+        return;
+      }
+
+
+      if (
+        sortMode === "room"
+      ) {
+
+        select.options[0].text =
+          sortAscending
+            ? "🏠 房間號：由小至大"
+            : "🏠 房間號：由大至小";
+
+      } else {
+
+        select.options[1].text =
+          sortAscending
+            ? "🕒 最近更新：最新在前"
+            : "🕒 最近更新：最舊在前";
+
+      }
+
+    }
+
+
+    function sortRooms(data) {
+
+      const sorted =
+        [...data];
+
+
+      sorted.sort(
+        function (a, b) {
+
+          let comparison =
+            0;
 
 
           if (
-            !Number.isNaN(numA) &&
-            !Number.isNaN(numB)
+            sortMode === "room"
           ) {
 
-            comparison =
-              numA - numB;
-
-          } else {
-
-            comparison =
-              roomA.localeCompare(
-                roomB,
-                "zh-Hant",
-                {
-                  numeric: true
-                }
+            const roomA =
+              String(
+                a.Room || ""
               );
 
-          }
-
-        }
-
-
-        else if (
-          sortMode === "updated"
-        ) {
-
-          const dateA =
-            new Date(
-              a.Updated_at || 0
-            ).getTime();
-
-          const dateB =
-            new Date(
-              b.Updated_at || 0
-            ).getTime();
-
-
-          comparison =
-            dateB - dateA;
-
-        }
-
-
-        return sortAscending
-          ? comparison
-          : -comparison;
-
-      }
-    );
-
-
-    return sorted;
-
-  }
-
-
-  // ==========================================
-  // Add room
-  // ==========================================
-
-  async function addRoom() {
-
-    const input =
-      document.getElementById(
-        "roomInput"
-      );
-
-
-    const room =
-      input.value.trim();
-
-
-    if (!room) {
-
-      alert(
-        "請先輸入房號"
-      );
-
-      return;
-
-    }
-
-
-    if (
-      rooms.some(
-        r =>
-          String(r.Room) ===
-          String(room)
-      )
-    ) {
-
-      alert(
-        "這個房號已經存在。"
-      );
-
-      return;
-
-    }
-
-
-    const now =
-      new Date().toISOString();
-
-
-    const result =
-      await db
-        .from(TABLE_NAME)
-        .insert({
-
-          Room: room,
-
-          Given: false,
-
-          Received: false,
-
-          Return: false,
-
-          Note: "",
-
-          Updated_at: now,
-
-          Updated_by: updatedBy
-
-        });
-
-
-    if (result.error) {
-
-      alert(
-        "加入失敗：\n\n" +
-        result.error.message
-      );
-
-      return;
-
-    }
-
-
-    input.value = "";
-
-    await loadRooms();
-
-  }
-
-
-  // ==========================================
-  // Update checkbox
-  // ==========================================
-
-  async function updateStatus(
-    room,
-    field,
-    value
-  ) {
-
-    const updateData = {
-
-      Updated_at:
-        new Date().toISOString(),
-
-      Updated_by:
-        updatedBy
-
-    };
-
-
-    updateData[field] =
-      value;
-
-
-    const result =
-      await db
-        .from(TABLE_NAME)
-        .update(updateData)
-        .eq("Room", room);
-
-
-    if (result.error) {
-
-      alert(
-        "更新失敗：\n\n" +
-        result.error.message
-      );
-
-      await loadRooms();
-
-      return;
-
-    }
-
-
-    await loadRooms();
-
-  }
-
-
-  // ==========================================
-  // Update Note
-  // ==========================================
-
-  const noteTimers = {};
-
-
-  function updateNote(
-    room,
-    value
-  ) {
-
-    clearTimeout(
-      noteTimers[room]
-    );
-
-
-    noteTimers[room] =
-      setTimeout(
-        async function() {
-
-          const result =
-            await db
-              .from(TABLE_NAME)
-              .update({
-
-                Note: value,
-
-                Updated_at:
-                  new Date().toISOString(),
-
-                Updated_by:
-                  updatedBy
-
-              })
-              .eq(
-                "Room",
-                room
+            const roomB =
+              String(
+                b.Room || ""
               );
 
 
-          if (result.error) {
+            const numA =
+              Number(roomA);
 
-            console.error(
-              result.error
-            );
+            const numB =
+              Number(roomB);
+
+
+            if (
+              !Number.isNaN(numA) &&
+              !Number.isNaN(numB) &&
+              roomA !== "" &&
+              roomB !== ""
+            ) {
+
+              comparison =
+                numA - numB;
+
+            } else {
+
+              comparison =
+                roomA.localeCompare(
+                  roomB,
+                  "zh-Hant",
+                  {
+                    numeric: true
+                  }
+                );
+
+            }
 
           }
 
-        },
-        500
+
+          else if (
+            sortMode === "updated"
+          ) {
+
+            const dateA =
+              new Date(
+                a.Updated_at || 0
+              ).getTime();
+
+            const dateB =
+              new Date(
+                b.Updated_at || 0
+              ).getTime();
+
+
+            comparison =
+              dateB - dateA;
+
+          }
+
+
+          return sortAscending
+            ? comparison
+            : -comparison;
+
+        }
       );
 
-  }
 
-
-  // ==========================================
-  // Delete
-  // ==========================================
-
-  async function deleteRoom(
-    room
-  ) {
-
-    if (
-      !confirm(
-        `確定要刪除房號 ${room} 嗎？`
-      )
-    ) {
-
-      return;
+      return sorted;
 
     }
 
 
-    const result =
-      await db
-        .from(TABLE_NAME)
-        .delete()
-        .eq(
-          "Room",
-          room
+    // ==========================================
+    // Add room
+    // ==========================================
+
+    async function addRoom() {
+
+      const input =
+        document.getElementById(
+          "roomInput"
         );
 
 
-    if (result.error) {
-
-      alert(
-        "刪除失敗：\n\n" +
-        result.error.message
-      );
-
-      return;
-
-    }
+      const room =
+        input.value.trim();
 
 
-    await loadRooms();
+      if (!room) {
 
-  }
+        alert(
+          "請先輸入房號"
+        );
 
+        return;
 
-  // ==========================================
-  // Render
-  // ==========================================
-
-  function renderRooms() {
-
-    const list =
-      document.getElementById(
-        "roomList"
-      );
+      }
 
 
-    const search =
-      document
-        .getElementById(
-          "searchInput"
-        )
-        .value
-        .trim()
-        .toLowerCase();
+      if (
+        rooms.some(
+          function (r) {
 
-
-    const filtered =
-      rooms.filter(
-        function(room) {
-
-          return (
-
-            String(
-              room.Room || ""
-            )
-              .toLowerCase()
-              .includes(search)
-
-            ||
-
-            String(
-              room.Note || ""
-            )
-              .toLowerCase()
-              .includes(search)
-
-          );
-
-        }
-      );
-
-
-    const sorted =
-      sortRooms(filtered);
-
-
-    if (
-      sorted.length === 0
-    ) {
-
-      list.innerHTML = `
-        <div class="empty">
-          ✨ 暫時沒有房號
-        </div>
-      `;
-
-      return;
-
-    }
-
-
-    list.innerHTML =
-      sorted
-        .map(
-          function(room) {
-
-            return `
-
-              <div
-                class="room-card"
-                data-room="${escapeHtml(room.Room)}"
-              >
-
-                <div class="room-header">
-
-                  <div class="room-number">
-                    🏨
-                    ${escapeHtml(room.Room)}
-                  </div>
-
-                  <button
-                    class="delete-btn"
-                    onclick="
-                      deleteRoom(
-                        '${escapeJs(room.Room)}'
-                      )
-                    "
-                  >
-                    刪除
-                  </button>
-
-                </div>
-
-
-                <div class="checks">
-
-                  ${createCheck(
-                    room,
-                    "Given",
-                    "🎁",
-                    "已送出"
-                  )}
-
-                  ${createCheck(
-                    room,
-                    "Received",
-                    "✨",
-                    "收到禮物"
-                  )}
-
-                  ${createCheck(
-                    room,
-                    "Return",
-                    "💝",
-                    "已回禮"
-                  )}
-
-                </div>
-
-
-                <textarea
-                  class="note"
-                  placeholder="備註，例如：米奇、唐老鴨..."
-                  oninput="
-                    updateNote(
-                      '${escapeJs(room.Room)}',
-                      this.value
-                    )
-                  "
-                >${escapeHtml(
-                  room.Note || ""
-                )}</textarea>
-
-
-                ${
-                  room.Updated_at
-                    ? `
-                      <div class="meta">
-                        最後更新：
-                        ${formatDate(
-                          room.Updated_at
-                        )}
-                        ·
-                        ${escapeHtml(
-                          room.Updated_by || ""
-                        )}
-                      </div>
-                    `
-                    : ""
-                }
-
-              </div>
-
-            `;
+            return String(r.Room) ===
+              String(room);
 
           }
         )
-        .join("");
+      ) {
 
-  }
+        alert(
+          "這個房號已經存在。"
+        );
 
+        return;
 
-  function createCheck(
-    room,
-    field,
-    icon,
-    text
-  ) {
-
-    const checked =
-      !!room[field];
+      }
 
 
-    return `
+      const now =
+        new Date().toISOString();
 
-      <div
-        class="check ${
-          checked
-            ? "active"
-            : ""
-        }"
-      >
 
-        <input
-          type="checkbox"
-          ${checked ? "checked" : ""}
-          onchange="
-            updateStatus(
-              '${escapeJs(room.Room)}',
-              '${field}',
-              this.checked
-            )
-          "
+      const result =
+        await db
+          .from(TABLE_NAME)
+          .insert({
+
+            Room: room,
+
+            Given: false,
+
+            Received: false,
+
+            Return: false,
+
+            Note: "",
+
+            Updated_at: now,
+
+            Updated_by: updatedBy
+
+          });
+
+
+      if (result.error) {
+
+        alert(
+          "加入失敗：\n\n" +
+          result.error.message
+        );
+
+        return;
+
+      }
+
+
+      input.value = "";
+
+      await loadRooms();
+
+    }
+
+
+    // ==========================================
+    // Update checkbox
+    // ==========================================
+
+    async function updateStatus(
+      room,
+      field,
+      value
+    ) {
+
+      const updateData = {
+
+        Updated_at:
+          new Date().toISOString(),
+
+        Updated_by:
+          updatedBy
+
+      };
+
+
+      updateData[field] =
+        value;
+
+
+      const result =
+        await db
+          .from(TABLE_NAME)
+          .update(updateData)
+          .eq(
+            "Room",
+            room
+          );
+
+
+      if (result.error) {
+
+        alert(
+          "更新失敗：\n\n" +
+          result.error.message
+        );
+
+        await loadRooms();
+
+        return;
+
+      }
+
+
+      await loadRooms();
+
+    }
+
+
+    // ==========================================
+    // Update note
+    // ==========================================
+
+    const noteTimers = {};
+
+
+    function updateNote(
+      room,
+      value
+    ) {
+
+      clearTimeout(
+        noteTimers[room]
+      );
+
+
+      noteTimers[room] =
+        setTimeout(
+          async function () {
+
+            const result =
+              await db
+                .from(TABLE_NAME)
+                .update({
+
+                  Note: value,
+
+                  Updated_at:
+                    new Date().toISOString(),
+
+                  Updated_by:
+                    updatedBy
+
+                })
+                .eq(
+                  "Room",
+                  room
+                );
+
+
+            if (result.error) {
+
+              console.error(
+                result.error
+              );
+
+            }
+
+          },
+          500
+        );
+
+    }
+
+
+    // ==========================================
+    // Delete room
+    // ==========================================
+
+    async function deleteRoom(
+      room
+    ) {
+
+      if (
+        !confirm(
+          "確定要刪除房號 " +
+          room +
+          " 嗎？"
+        )
+      ) {
+
+        return;
+
+      }
+
+
+      const result =
+        await db
+          .from(TABLE_NAME)
+          .delete()
+          .eq(
+            "Room",
+            room
+          );
+
+
+      if (result.error) {
+
+        alert(
+          "刪除失敗：\n\n" +
+          result.error.message
+        );
+
+        return;
+
+      }
+
+
+      await loadRooms();
+
+    }
+
+
+    // ==========================================
+    // Render rooms
+    // ==========================================
+
+    function renderRooms() {
+
+      updateStatistics();
+
+
+      const list =
+        document.getElementById(
+          "roomList"
+        );
+
+
+      const search =
+        document
+          .getElementById(
+            "searchInput"
+          )
+          .value
+          .trim()
+          .toLowerCase();
+
+
+      const filtered =
+        rooms.filter(
+          function (room) {
+
+            return (
+
+              String(
+                room.Room || ""
+              )
+                .toLowerCase()
+                .includes(search)
+
+              ||
+
+              String(
+                room.Note || ""
+              )
+                .toLowerCase()
+                .includes(search)
+
+            );
+
+          }
+        );
+
+
+      const sorted =
+        sortRooms(filtered);
+
+
+      if (
+        sorted.length === 0
+      ) {
+
+        list.innerHTML =
+          '<div class="empty">✨ 暫時沒有房號</div>';
+
+        return;
+
+      }
+
+
+      list.innerHTML =
+        sorted
+          .map(
+            function (room) {
+
+              const safeRoom =
+                escapeHtml(
+                  room.Room
+                );
+
+
+              const jsRoom =
+                escapeJs(
+                  room.Room
+                );
+
+
+              const note =
+                escapeHtml(
+                  room.Note || ""
+                );
+
+
+              const updatedByText =
+                escapeHtml(
+                  room.Updated_by || ""
+                );
+
+
+              const meta =
+                room.Updated_at
+                  ? `
+                    <div class="meta">
+                      最後更新：
+                      ${formatDate(
+                        room.Updated_at
+                      )}
+                      ·
+                      ${updatedByText}
+                    </div>
+                  `
+                  : "";
+
+
+              return `
+
+                <div class="room-card">
+
+                  <div class="room-header">
+
+                    <div class="room-number">
+                      🏨 ${safeRoom}
+                    </div>
+
+
+                    <button
+                      class="delete-btn"
+                      type="button"
+                      onclick="deleteRoom('${jsRoom}')"
+                    >
+                      刪除
+                    </button>
+
+                  </div>
+
+
+                  <div class="checks">
+
+                    ${createCheck(
+                      room,
+                      "Given",
+                      "🎁",
+                      "已送出"
+                    )}
+
+
+                    ${createCheck(
+                      room,
+                      "Received",
+                      "✨",
+                      "收到禮物"
+                    )}
+
+
+                    ${createCheck(
+                      room,
+                      "Return",
+                      "💝",
+                      "已回禮"
+                    )}
+
+                  </div>
+
+
+                  <textarea
+                    class="note"
+                    placeholder="備註，例如：米奇、唐老鴨..."
+                    oninput="updateNote('${jsRoom}', this.value)"
+                  >${note}</textarea>
+
+
+                  ${meta}
+
+                </div>
+
+              `;
+
+            }
+          )
+          .join("");
+
+    }
+
+
+    // ==========================================
+    // Create checkbox
+    // ==========================================
+
+    function createCheck(
+      room,
+      field,
+      icon,
+      text
+    ) {
+
+      const checked =
+        !!room[field];
+
+
+      const jsRoom =
+        escapeJs(
+          room.Room
+        );
+
+
+      return `
+
+        <div
+          class="check ${
+            checked
+              ? "active"
+              : ""
+          }"
         >
 
-        <label>
-          ${icon}<br>
-          ${text}
-        </label>
+          <input
+            type="checkbox"
+            ${checked ? "checked" : ""}
+            onchange="
+              updateStatus(
+                '${jsRoom}',
+                '${field}',
+                this.checked
+              )
+            "
+          >
 
-      </div>
 
-    `;
+          <label>
 
-  }
+            ${icon}<br>
+
+            ${text}
+
+          </label>
+
+        </div>
+
+      `;
+
+    }
 
 
-  // ==========================================
-  // Date
-  // ==========================================
+    // ==========================================
+    // Date
+    // ==========================================
 
-  function formatDate(
-    value
-  ) {
-
-    return new Date(
+    function formatDate(
       value
-    ).toLocaleString(
-      "zh-HK",
-      {
-        month: "numeric",
-        day: "numeric",
-        hour: "2-digit",
-        minute: "2-digit"
-      }
-    );
+    ) {
 
-  }
-
-
-  // ==========================================
-  // Security helpers
-  // ==========================================
-
-  function escapeHtml(
-    value
-  ) {
-
-    return String(value)
-
-      .replace(
-        /&/g,
-        "&amp;"
-      )
-
-      .replace(
-        /</g,
-        "&lt;"
-      )
-
-      .replace(
-        />/g,
-        "&gt;"
-      )
-
-      .replace(
-        /"/g,
-        "&quot;"
-      )
-
-      .replace(
-        /'/g,
-        "&#039;"
+      return new Date(
+        value
+      ).toLocaleString(
+        "zh-HK",
+        {
+          month: "numeric",
+          day: "numeric",
+          hour: "2-digit",
+          minute: "2-digit"
+        }
       );
 
-  }
+    }
 
 
-  function escapeJs(
-    value
-  ) {
+    // ==========================================
+    // Security helpers
+    // ==========================================
 
-    return String(value)
+    function escapeHtml(
+      value
+    ) {
 
-      .replace(
-        /\\/g,
-        "\\\\"
-      )
+      return String(value)
 
-      .replace(
-        /'/g,
-        "\\'"
-      );
+        .replace(
+          /&/g,
+          "&amp;"
+        )
 
-  }
+        .replace(
+          /</g,
+          "&lt;"
+        )
 
+        .replace(
+          />/g,
+          "&gt;"
+        )
 
-  // ==========================================
-  // Status
-  // ==========================================
+        .replace(
+          /"/g,
+          "&quot;"
+        )
 
-  function setStatus(
-    text,
-    type
-  ) {
+        .replace(
+          /'/g,
+          "&#039;"
+        );
 
-    const el =
-      document.getElementById(
-        "connectionStatus"
-      );
-
-
-    el.textContent =
-      text;
-
-    el.className =
-      "status " + type;
-
-  }
+    }
 
 
-  // ==========================================
-  // Start
-  // ==========================================
+    function escapeJs(
+      value
+    ) {
 
-  checkUnlock();
+      return String(value)
 
-</script>
+        .replace(
+          /\\/g,
+          "\\\\"
+        )
+
+        .replace(
+          /'/g,
+          "\\'"
+        );
+
+    }
+
+
+    // ==========================================
+    // Status
+    // ==========================================
+
+    function setStatus(
+      text,
+      type
+    ) {
+
+      const el =
+        document.getElementById(
+          "connectionStatus"
+        );
+
+
+      el.textContent =
+        text;
+
+      el.className =
+        "status " + type;
+
+    }
+
+
+    // ==========================================
+    // Start
+    // ==========================================
+
+    checkUnlock();
+
+  </script>
 
 </body>
 </html>

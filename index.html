@@ -1,16 +1,12 @@
-
+```html
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8">
 
+  <!-- 不讓 Google 索引 Tracker -->
   <meta name="robots" content="noindex, nofollow">
 
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0">
-
-  <title>Pixie Dust Tracker</title>
-  
   <meta name="viewport"
         content="width=device-width, initial-scale=1.0">
 
@@ -37,8 +33,125 @@
         sans-serif;
     }
 
+    /* =========================
+       PIN LOCK
+    ========================= */
+
+    #pinLock {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      background:
+        linear-gradient(
+          135deg,
+          #7567d8,
+          #a58de8
+        );
+
+      padding: 20px;
+    }
+
+    .pin-box {
+      width: 100%;
+      max-width: 340px;
+
+      background: white;
+      border-radius: 24px;
+
+      padding: 30px 24px;
+
+      text-align: center;
+
+      box-shadow:
+        0 10px 35px rgba(0,0,0,.18);
+    }
+
+    .pin-icon {
+      font-size: 42px;
+      margin-bottom: 8px;
+    }
+
+    .pin-box h1 {
+      margin: 0;
+      font-size: 23px;
+      color: #332c4d;
+    }
+
+    .pin-box p {
+      margin: 8px 0 20px;
+      font-size: 14px;
+      color: #77718a;
+    }
+
+    .pin-input {
+      width: 100%;
+
+      border: 1px solid #ddd7ee;
+      border-radius: 14px;
+
+      padding: 15px;
+
+      text-align: center;
+
+      font-size: 25px;
+      letter-spacing: 9px;
+
+      outline: none;
+    }
+
+    .pin-input:focus {
+      border-color: #7567d8;
+      box-shadow:
+        0 0 0 3px rgba(117,103,216,.12);
+    }
+
+    .pin-button {
+      width: 100%;
+
+      margin-top: 14px;
+
+      background: #7567d8;
+      color: white;
+
+      border: none;
+      border-radius: 13px;
+
+      padding: 14px;
+
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .pin-error {
+      min-height: 20px;
+
+      margin-top: 10px;
+
+      color: #b23b3b;
+      font-size: 13px;
+    }
+
+    #app {
+      display: none;
+    }
+
+    /* =========================
+       MAIN
+    ========================= */
+
     header {
-      background: linear-gradient(135deg, #7567d8, #a58de8);
+      background:
+        linear-gradient(
+          135deg,
+          #7567d8,
+          #a58de8
+        );
+
       color: white;
       padding: 25px 18px;
       text-align: center;
@@ -98,8 +211,10 @@
     input[type="text"] {
       flex: 1;
       min-width: 0;
+
       border: 1px solid #ddd7ee;
       border-radius: 12px;
+
       padding: 13px;
       font-size: 16px;
     }
@@ -107,7 +222,9 @@
     button {
       border: none;
       border-radius: 12px;
+
       padding: 12px 15px;
+
       font-size: 15px;
       font-weight: 600;
     }
@@ -120,19 +237,22 @@
     .search {
       width: 100%;
       margin-top: 10px;
+
       border: 1px solid #ddd7ee;
       border-radius: 12px;
+
       padding: 13px;
       font-size: 16px;
     }
 
     /* =========================
-       Sort
+       SORT
     ========================= */
 
     .sort-row {
       display: flex;
       align-items: center;
+
       gap: 8px;
       margin-top: 10px;
     }
@@ -146,37 +266,42 @@
     .sort-select {
       flex: 1;
       min-width: 0;
+
       border: 1px solid #ddd7ee;
       border-radius: 12px;
+
       padding: 11px 12px;
+
       background: #faf9fd;
       color: #332c4d;
+
       font-size: 14px;
     }
 
     .reverse-btn {
       background: #eeeaff;
       color: #5d50a8;
+
       padding: 10px 12px;
       white-space: nowrap;
-    }
-
-    .reverse-btn:active {
-      transform: scale(.97);
     }
 
     .room-card {
       background: white;
       border-radius: 17px;
+
       margin-bottom: 12px;
       padding: 15px;
-      box-shadow: 0 2px 9px rgba(0,0,0,.07);
+
+      box-shadow:
+        0 2px 9px rgba(0,0,0,.07);
     }
 
     .room-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
+
       margin-bottom: 12px;
     }
 
@@ -188,6 +313,7 @@
     .delete-btn {
       background: #f7e9e9;
       color: #a43d3d;
+
       padding: 7px 10px;
       font-size: 12px;
     }
@@ -195,14 +321,18 @@
     .checks {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
+
       gap: 8px;
     }
 
     .check {
       border: 1px solid #e2ddee;
       border-radius: 13px;
+
       padding: 12px 5px;
+
       text-align: center;
+
       background: #faf9fd;
     }
 
@@ -214,6 +344,7 @@
     .check input {
       width: 21px;
       height: 21px;
+
       accent-color: #7567d8;
     }
 
@@ -225,15 +356,19 @@
     .note {
       width: 100%;
       margin-top: 11px;
+
       border: 1px solid #e2ddee;
       border-radius: 11px;
+
       padding: 11px;
+
       font-size: 14px;
       min-height: 45px;
     }
 
     .meta {
       margin-top: 9px;
+
       font-size: 11px;
       color: #9993a8;
     }
@@ -241,104 +376,351 @@
     .empty {
       text-align: center;
       color: #9993a8;
+
       padding: 35px 10px;
     }
 
     .debug {
       margin-top: 15px;
+
       background: #fff4f4;
       color: #9b3030;
+
       border: 1px solid #f0cccc;
       border-radius: 12px;
+
       padding: 12px;
+
       font-size: 12px;
+
       white-space: pre-wrap;
       word-break: break-word;
+    }
+
+    /* =========================
+       LOCK BUTTON
+    ========================= */
+
+    .lock-row {
+      text-align: right;
+      margin-bottom: 10px;
+    }
+
+    .lock-btn {
+      background: #eeeaff;
+      color: #5d50a8;
+
+      padding: 8px 12px;
+      font-size: 12px;
     }
   </style>
 </head>
 
 <body>
 
-<header>
-  <h1>✨✨Tracker</h1>
-  <p>our little note</p>
-</header>
+<!-- =========================
+     PIN LOCK SCREEN
+========================= -->
 
-<div class="container">
+<div id="pinLock">
 
-  <div id="connectionStatus" class="status">
-    🔄 正在連接 Pixie Dust Cloud...
-  </div>
+  <div class="pin-box">
 
-  <div id="debug"></div>
-
-  <div class="add-box">
-
-    <div class="add-row">
-
-      <input
-        id="roomInput"
-        type="text"
-        placeholder="輸入房號，例如 8234"
-        inputmode="numeric"
-      >
-
-      <button
-        class="add-btn"
-        onclick="addRoom()"
-      >
-        ＋加入
-      </button>
-
+    <div class="pin-icon">
+      🔐
     </div>
+
+    <h1>
+      Pixie Dust Tracker
+    </h1>
+
+    <p>
+      私人 Gift Exchange Tracker
+    </p>
 
     <input
-      id="searchInput"
-      class="search"
-      type="text"
-      placeholder="🔎 搜尋房號或備註..."
-      oninput="renderRooms()"
+      id="pinInput"
+      class="pin-input"
+      type="password"
+      inputmode="numeric"
+      maxlength="4"
+      pattern="[0-9]*"
+      autocomplete="off"
+      placeholder="••••"
+      onkeydown="handlePinKey(event)"
     >
 
-    <div class="sort-row">
+    <button
+      class="pin-button"
+      onclick="unlockTracker()"
+    >
+      解鎖
+    </button>
 
-      <span class="sort-label">
-        排序：
-      </span>
+    <div
+      id="pinError"
+      class="pin-error"
+    ></div>
 
-      <select
-        id="sortSelect"
-        class="sort-select"
-        onchange="changeSort()"
-      >
-        <option value="room">
-          🏠 房間號
-        </option>
+  </div>
 
-        <option value="updated">
-          🕒 最近更新
-        </option>
-      </select>
+</div>
+
+
+<!-- =========================
+     MAIN APP
+========================= -->
+
+<div id="app">
+
+  <header>
+    <h1>✨ Pixie Dust Tracker</h1>
+    <p>Disney Adventure · Gift Exchange</p>
+  </header>
+
+  <div class="container">
+
+    <div class="lock-row">
 
       <button
-        class="reverse-btn"
-        onclick="reverseSort()"
-        title="反轉目前排序方向"
+        class="lock-btn"
+        onclick="lockTracker()"
       >
-        ↕️ 反向
+        🔒 鎖定 Tracker
       </button>
 
     </div>
 
-  </div>
+    <div
+      id="connectionStatus"
+      class="status"
+    >
+      🔄 正在連接 Pixie Dust Cloud...
+    </div>
 
-  <div id="roomList"></div>
+    <div id="debug"></div>
+
+    <div class="add-box">
+
+      <div class="add-row">
+
+        <input
+          id="roomInput"
+          type="text"
+          placeholder="輸入房號，例如 8234"
+          inputmode="numeric"
+        >
+
+        <button
+          class="add-btn"
+          onclick="addRoom()"
+        >
+          ＋加入
+        </button>
+
+      </div>
+
+      <input
+        id="searchInput"
+        class="search"
+        type="text"
+        placeholder="🔎 搜尋房號或備註..."
+        oninput="renderRooms()"
+      >
+
+      <div class="sort-row">
+
+        <span class="sort-label">
+          排序：
+        </span>
+
+        <select
+          id="sortSelect"
+          class="sort-select"
+          onchange="changeSort()"
+        >
+
+          <option value="room">
+            🏠 房間號
+          </option>
+
+          <option value="updated">
+            🕒 最近更新
+          </option>
+
+        </select>
+
+        <button
+          class="reverse-btn"
+          onclick="reverseSort()"
+        >
+          ↕️ 反向
+        </button>
+
+      </div>
+
+    </div>
+
+    <div id="roomList"></div>
+
+  </div>
 
 </div>
 
 
 <script>
+
+  // ==========================================
+  // PIN 設定
+  // ==========================================
+
+  const TRACKER_PIN = "0720";
+
+
+  // ==========================================
+  // PIN Lock
+  // ==========================================
+
+  function unlockTracker() {
+
+    const input =
+      document.getElementById(
+        "pinInput"
+      );
+
+    const error =
+      document.getElementById(
+        "pinError"
+      );
+
+    if (
+      input.value ===
+      TRACKER_PIN
+    ) {
+
+      sessionStorage.setItem(
+        "pixie_unlocked",
+        "true"
+      );
+
+      document.getElementById(
+        "pinLock"
+      ).style.display =
+        "none";
+
+      document.getElementById(
+        "app"
+      ).style.display =
+        "block";
+
+      error.textContent = "";
+
+      init();
+
+    } else {
+
+      error.textContent =
+        "❌ PIN 不正確，請再試一次";
+
+      input.value = "";
+
+      input.focus();
+
+    }
+  }
+
+
+  function handlePinKey(event) {
+
+    if (
+      event.key ===
+      "Enter"
+    ) {
+
+      unlockTracker();
+
+    }
+  }
+
+
+  function lockTracker() {
+
+    sessionStorage.removeItem(
+      "pixie_unlocked"
+    );
+
+    document.getElementById(
+      "app"
+    ).style.display =
+      "none";
+
+    document.getElementById(
+      "pinLock"
+    ).style.display =
+      "flex";
+
+    const input =
+      document.getElementById(
+        "pinInput"
+      );
+
+    input.value = "";
+
+    input.focus();
+
+  }
+
+
+  // ==========================================
+  // 檢查是否已解鎖
+  // ==========================================
+
+  function checkUnlock() {
+
+    if (
+      sessionStorage.getItem(
+        "pixie_unlocked"
+      ) === "true"
+    ) {
+
+      document.getElementById(
+        "pinLock"
+      ).style.display =
+        "none";
+
+      document.getElementById(
+        "app"
+      ).style.display =
+        "block";
+
+      init();
+
+    } else {
+
+      document.getElementById(
+        "pinLock"
+      ).style.display =
+        "flex";
+
+      document.getElementById(
+        "app"
+      ).style.display =
+        "none";
+
+      setTimeout(
+        function() {
+
+          document.getElementById(
+            "pinInput"
+          ).focus();
+
+        },
+        100
+      );
+
+    }
+  }
+
 
   // ==========================================
   // Supabase 設定
@@ -391,10 +773,7 @@
   if (!window.supabase) {
 
     showError(
-      "找不到 Supabase JavaScript。\n\n" +
-      "瀏覽器沒有成功載入 Supabase CDN。\n\n" +
-      "如果你是直接開啟 index.html，" +
-      "我們下一步會把它放到免費網站上測試。"
+      "找不到 Supabase JavaScript。"
     );
 
     throw new Error(
@@ -425,7 +804,6 @@
   let rooms = [];
 
 
-  // 排序狀態
   let sortMode =
     localStorage.getItem(
       "pixie_sort_mode"
@@ -437,6 +815,7 @@
       "pixie_sort_ascending"
     );
 
+
   if (sortAscending === null) {
 
     sortAscending = true;
@@ -445,6 +824,7 @@
 
     sortAscending =
       sortAscending === "true";
+
   }
 
 
@@ -465,6 +845,7 @@
       "pixie_updated_by",
       updatedBy
     );
+
   }
 
 
@@ -472,7 +853,17 @@
   // 初始化
   // ==========================================
 
+  let initialized = false;
+
+
   async function init() {
+
+    if (initialized) {
+      return;
+    }
+
+    initialized = true;
+
 
     setStatus(
       "🔄 正在讀取 Pixie Dust Cloud...",
@@ -480,7 +871,6 @@
     );
 
 
-    // 還原排序選擇
     const sortSelect =
       document.getElementById(
         "sortSelect"
@@ -507,6 +897,7 @@
       );
 
     }
+
   }
 
 
@@ -533,9 +924,11 @@
       showError(
         "Supabase 回傳錯誤：\n\n" +
         result.error.message +
-        "\n\n" +
-        "Code: " +
-        (result.error.code || "無")
+        "\n\nCode: " +
+        (
+          result.error.code ||
+          "無"
+        )
       );
 
       return;
@@ -558,6 +951,7 @@
 
 
     renderRooms();
+
   }
 
 
@@ -601,6 +995,7 @@
 
         }
       );
+
   }
 
 
@@ -615,12 +1010,11 @@
         "sortSelect"
       );
 
+
     sortMode =
       select.value;
 
 
-    // 每次改變排序類型，
-    // 預設先使用正向排序
     sortAscending = true;
 
 
@@ -638,6 +1032,7 @@
     updateSortLabel();
 
     renderRooms();
+
   }
 
 
@@ -656,6 +1051,7 @@
     updateSortLabel();
 
     renderRooms();
+
   }
 
 
@@ -672,49 +1068,22 @@
     }
 
 
-    const reverseButton =
-      document.querySelector(
-        ".reverse-btn"
-      );
+    if (sortMode === "room") {
 
-
-    if (sortAscending) {
-
-      if (sortMode === "room") {
-
-        select.options[0].text =
-          "🏠 房間號：由小至大";
-
-      } else {
-
-        select.options[1].text =
-          "🕒 最近更新：最新在前";
-      }
+      select.options[0].text =
+        sortAscending
+          ? "🏠 房間號：由小至大"
+          : "🏠 房間號：由大至小";
 
     } else {
 
-      if (sortMode === "room") {
-
-        select.options[0].text =
-          "🏠 房間號：由大至小";
-
-      } else {
-
-        select.options[1].text =
-          "🕒 最近更新：最舊在前";
-      }
-
-    }
-
-
-    if (reverseButton) {
-
-      reverseButton.title =
+      select.options[1].text =
         sortAscending
-          ? "反轉目前排序方向"
-          : "恢復正向排序";
+          ? "🕒 最近更新：最新在前"
+          : "🕒 最近更新：最舊在前";
 
     }
+
   }
 
 
@@ -730,7 +1099,9 @@
         let comparison = 0;
 
 
-        if (sortMode === "room") {
+        if (
+          sortMode === "room"
+        ) {
 
           const roomA =
             String(
@@ -743,8 +1114,6 @@
             );
 
 
-          // 如果房號純粹是數字，
-          // 使用數字排序
           const numA =
             Number(roomA);
 
@@ -770,6 +1139,7 @@
                   numeric: true
                 }
               );
+
           }
 
         }
@@ -790,9 +1160,9 @@
             ).getTime();
 
 
-          // 預設：最新在前
           comparison =
             dateB - dateA;
+
         }
 
 
@@ -805,6 +1175,7 @@
 
 
     return sorted;
+
   }
 
 
@@ -831,6 +1202,7 @@
       );
 
       return;
+
     }
 
 
@@ -847,6 +1219,7 @@
       );
 
       return;
+
     }
 
 
@@ -884,12 +1257,14 @@
       );
 
       return;
+
     }
 
 
     input.value = "";
 
     await loadRooms();
+
   }
 
 
@@ -935,10 +1310,12 @@
       await loadRooms();
 
       return;
+
     }
 
 
     await loadRooms();
+
   }
 
 
@@ -994,6 +1371,7 @@
         },
         500
       );
+
   }
 
 
@@ -1012,6 +1390,7 @@
     ) {
 
       return;
+
     }
 
 
@@ -1019,7 +1398,10 @@
       await db
         .from(TABLE_NAME)
         .delete()
-        .eq("Room", room);
+        .eq(
+          "Room",
+          room
+        );
 
 
     if (result.error) {
@@ -1030,10 +1412,12 @@
       );
 
       return;
+
     }
 
 
     await loadRooms();
+
   }
 
 
@@ -1100,6 +1484,7 @@
       `;
 
       return;
+
     }
 
 
@@ -1200,6 +1585,7 @@
           }
         )
         .join("");
+
   }
 
 
@@ -1244,6 +1630,7 @@
       </div>
 
     `;
+
   }
 
 
@@ -1266,6 +1653,7 @@
         minute: "2-digit"
       }
     );
+
   }
 
 
@@ -1303,6 +1691,7 @@
         /'/g,
         "&#039;"
       );
+
   }
 
 
@@ -1311,14 +1700,17 @@
   ) {
 
     return String(value)
+
       .replace(
         /\\/g,
         "\\\\"
       )
+
       .replace(
         /'/g,
         "\\'"
       );
+
   }
 
 
@@ -1342,6 +1734,7 @@
 
     el.className =
       "status " + type;
+
   }
 
 
@@ -1349,10 +1742,10 @@
   // Start
   // ==========================================
 
-  init();
+  checkUnlock();
 
 </script>
 
 </body>
 </html>
-
+```
